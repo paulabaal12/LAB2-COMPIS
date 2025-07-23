@@ -1,5 +1,7 @@
 # 🧪 Laboratorio 2: Sistema de Tipos con ANTLR
 
+## LINK DEL VIDEO: https://youtu.be/ngFih_YtkR8 
+## EN lab2.md SE ENCUENTRA UN PEQUEÑO RESUMEN DE LOS CAMBIOS 
 ## 📋 Descripción General
 
 En este laboratorio trabajarás con **ANTLR**, un generador de analizadores sintácticos. Hemos proporcionado un `Dockerfile` para ayudarte a configurar el entorno rápidamente. Utilizaremos Python para hacer pruebas, ya que es más sencillo que Java para pruebas pequeñas.
