@@ -1,7 +1,9 @@
-#!/bin/sh
-: "3.12.3:=python"
-mkdir "/v3.12.3"
-python3 -m venv "/v3.12.3"
-source "/v3.12.3/bin/activate"
+#!/bin/bash
 
-exec "$@"
+python3 -m venv /opt/venv
+source /opt/venv/bin/activate
+pip install --upgrade pip
+ln -sf /opt/venv/bin/python /usr/local/bin/python
+ln -sf /opt/venv/bin/pip /usr/local/bin/pip
+
+echo "Python virtual environment created and activated successfully"

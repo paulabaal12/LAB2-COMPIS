@@ -1,0 +1,11 @@
+docker build --rm . -t lab2-image; docker run --rm -ti -v "${PWD}/program:/program" lab2-image
+
+docker run --rm -ti -v "$(pwd)/program:/program" lab2-image
+
+
+docker run --rm -ti -v "$(Get-Location)\program:/program" lab2-image bash -c "java -jar /usr/local/lib/antlr-4.13.1-complete.jar -Dlanguage=Python3 -visitor SimpleLang.g4 && ls -la *.py"
+
+docker run --rm -ti -v "$(Get-Location)\program:/program" lab2-image bash -c "java -jar /usr/local/lib/antlr-4.13.1-complete.jar -Dlanguage=Python3 -listener SimpleLang.g4 && ls -la *.py"
+
+
+

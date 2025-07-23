@@ -40,7 +40,8 @@ RUN apt-get update && apt-get install -y \
 
 RUN add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update && apt-get install -y \
-    python3-pip
+    python3-pip \
+    python3-venv
 
 # Install ANTLR
 # We are using a version we downloaded from https://www.antlr.org/download/antlr-4.13.1-complete.jar
@@ -57,13 +58,17 @@ COPY ./commands/grun /usr/bin/grun
 RUN chmod +x /usr/bin/grun
 
 # Python virtual env
-COPY python-venv.sh .
-RUN chmod +x ./python-venv.sh
-RUN ./python-venv.sh
+# Create virtual environment directly in Dockerfile
+RUN python3 -m venv /opt/venv
+# Activate virtual environment and upgrade pip
+RUN /opt/venv/bin/python -m pip install --upgrade pip
 
 COPY requirements.txt .
-# Not production-intended, never do this, this is just a simple example
-RUN pip install -r requirements.txt --break-system-packages 
+# Install requirements in virtual environment
+RUN /opt/venv/bin/pip install -r requirements.txt
+
+# Make virtual environment accessible to all users
+RUN chmod -R 755 /opt/venv
 
 # Set user
 ARG USER=appuser
@@ -75,6 +80,11 @@ RUN adduser \
     --no-create-home \
     --uid "${UID}" \
     "${USER}"
+
+# Set environment variables for the virtual environment
+ENV PATH="/opt/venv/bin:$PATH"
+ENV VIRTUAL_ENV="/opt/venv"
+
 USER ${UID}
 
 WORKDIR /program

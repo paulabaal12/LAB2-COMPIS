@@ -4,13 +4,15 @@ prog: stat+ ;
 
 stat: expr NEWLINE ;
 
-expr: expr op=('*'|'/') expr       # MulDiv
-    | expr op=('+'|'-') expr       # AddSub
-    | INT                          # Int
-    | FLOAT                        # Float
-    | STRING                       # String
-    | BOOL                         # Bool
-    | '(' expr ')'                 # Parens
+expr: expr op=('*'|'/'|'%'|'^') expr       # MulDivModPow
+    | expr op=('+'|'-') expr                # AddSub
+    | expr op=('>'|'<') expr                # Compare
+    | expr op='&&' expr                     # And
+    | INT                                   # Int
+    | FLOAT                                 # Float
+    | STRING                                # String
+    | BOOL                                  # Bool
+    | '(' expr ')'                          # Parens
     ;
 
 INT: [0-9]+ ;
